@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[9]:
+# In[10]:
 
 
 from backtesting import Backtest, Strategy
 import yfinance as yf
 
 
-# In[10]:
+# In[11]:
 
 
 # https://stackoverflow.com/questions/40256338/calculating-average-true-range-atr-on-ohlc-data-with-python
@@ -31,7 +31,7 @@ def atr(df, n=14):
     return atr
 
 
-# In[11]:
+# In[12]:
 
 
 class FallUp(Strategy):
@@ -73,7 +73,7 @@ class FallUp(Strategy):
                 self.position.close()
 
 
-# In[12]:
+# In[13]:
 
 
 data = yf.download("^SPX", period="60d", interval="5m")
@@ -98,19 +98,19 @@ bt = Backtest(
 stats = bt.run()
 
 
-# In[13]:
-
-
-stats
-
-
 # In[14]:
 
 
-stats._trades
+display(stats)
 
 
 # In[15]:
+
+
+display(stats._trades)
+
+
+# In[16]:
 
 
 bt.plot()

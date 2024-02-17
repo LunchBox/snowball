@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[10]:
+# In[17]:
 
 
 from IPython.display import display
@@ -10,7 +10,7 @@ from backtesting import Backtest, Strategy
 import yfinance as yf
 
 
-# In[11]:
+# In[18]:
 
 
 class FallUp(Strategy):
@@ -55,7 +55,7 @@ class FallUp(Strategy):
 				self.position.close()
 
 
-# In[12]:
+# In[19]:
 
 
 bt = Backtest(
@@ -76,25 +76,25 @@ bt = Backtest(
 )
 
 
-# In[13]:
+# In[20]:
 
 
 stats = bt.run()
 
 
-# In[14]:
+# In[21]:
 
 
 display(stats)
 
 
-# In[15]:
+# In[22]:
 
 
 display(stats._trades)
 
 
-# In[16]:
+# In[23]:
 
 
 bt.plot()
