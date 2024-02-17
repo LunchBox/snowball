@@ -1,0 +1,32 @@
+/*This file contains any manual css for this page that needs to override the global styles.
+This is only required when different pages style the same element differently. This is just
+a hack to deal with our current css styles and no new styling should be added in this file.*/
+
+#ipython-main-app {
+  position: relative;
+}
+#jupyter-main-app {
+  position: relative;
+}
+
+.container {
+  width: 90%;
+}
+
+.notebook_app {
+  background: transparent;
+}
+
+.notebook_app > #header,
+#notebook-container {
+  box-shadow: none;
+}
+
+body > #header .header-bar {
+  background: transparent;
+}
+
+#menubar .navbar {
+  border: 1px solid #e7e7e7;
+  border-radius: 2px;
+}

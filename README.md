@@ -25,3 +25,9 @@ incase for remove kernel
 ```
 (venv) $ jupyter-kernelspec uninstall venv 
 ```
+
+place the custom.css for better jupyter layout
+
+```
+$ cp custom.css ~/.jupyter/custom/custom.css
+```
