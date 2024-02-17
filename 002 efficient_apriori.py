@@ -20,13 +20,18 @@ print(rules)
 
 
 tickers = ['^SPX', 'NVDA', 'MSFT', 'AAPL', 'META']
+
+# all spx 500
+# spx_tickers = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]
+# spx_tickers.to_csv('spx_tickers.csv', index=False)
+
+# ticker_len = 70
+# tickers = ["^SPX"] + pd.read_csv('spx_tickers.csv').iloc[:ticker_len, 0].tolist()
+
 df = yf.download(
  tickers, 
  period="60d",
  interval="5m",
-#  start="2023-01-01", 
-#  end="2023-12-31", 
-#  interval="1d", 
  group_by='Ticker'
 )
 print(df)
@@ -58,8 +63,12 @@ start_time = time.time()
 itemsets, rules = apriori(df.values, min_support=0.2,  min_confidence=0.5)
 print("--- run time: %s seconds ---" % (time.time() - start_time))
 
-print(itemsets)
-print(rules) 
+# 50 tickers around 14s
+# 70 tickers around 60s
+
+
+# print(itemsets)
+# print(rules) 
 
 rules_rhs = filter(lambda rule: len(rule.lhs) == 1 and rule.rhs[0].startswith('^SPX'), rules)
 for rule in sorted(rules_rhs, key=lambda rule: rule.confidence, reverse=True):
