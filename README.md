@@ -15,3 +15,10 @@ Jupyterlab
 
 (venv) $ jupyter lab
 ```
+
+Convert jupyter notebook .ipynb file to python .py file, saved to ./scripts folder
+
+```
+(venv) $ chmod +x to_py.sh
+(venv) $ ./to_py.sh {NOTEBOOK}.ipynb
+```

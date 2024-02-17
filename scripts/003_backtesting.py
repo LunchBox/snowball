@@ -1,7 +1,16 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[10]:
+
+
+from IPython.display import display
 
 from backtesting import Backtest, Strategy
-
 import yfinance as yf
+
+
+# In[11]:
 
 
 class FallUp(Strategy):
@@ -46,6 +55,9 @@ class FallUp(Strategy):
 				self.position.close()
 
 
+# In[12]:
+
+
 bt = Backtest(
 	# data
 	yf.download("^SPX", period="60d", interval="5m"), 
@@ -63,7 +75,27 @@ bt = Backtest(
 	exclusive_orders=True 
 )
 
+
+# In[13]:
+
+
 stats = bt.run()
-print(stats)
-print(stats._trades)
+
+
+# In[14]:
+
+
+display(stats)
+
+
+# In[15]:
+
+
+display(stats._trades)
+
+
+# In[16]:
+
+
 bt.plot()
+
