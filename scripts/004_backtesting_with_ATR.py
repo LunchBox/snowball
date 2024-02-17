@@ -1,37 +1,25 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[10]:
+# # backtesting with ATR adjustment
+
+# > The **average true range (ATR)** is a market volatility indicator used in technical analysis. It is typically derived from the 14-day simple moving average of a series of true range indicators. The ATR was initially developed for use in commodities markets but has since been applied to all types of securities.
+
+# In[1]:
 
 
 from backtesting import Backtest, Strategy
 import yfinance as yf
+import pandas_ta as ta
 
 
-# In[11]:
+# In[2]:
 
 
-# https://stackoverflow.com/questions/40256338/calculating-average-true-range-atr-on-ohlc-data-with-python
-def wwma(values, n):
-    """
-        J. Welles Wilder's EMA 
-    """
-    return values.ewm(alpha=1/n, adjust=False).mean()
-
-def atr(df, n=14):
-    data = df.copy()
-    high = data.High
-    low = data.Low
-    close = data.Close
-    data['tr0'] = abs(high - low)
-    data['tr1'] = abs(high - close.shift())
-    data['tr2'] = abs(low - close.shift())
-    tr = data[['tr0', 'tr1', 'tr2']].max(axis=1)
-    atr = wwma(tr, n)
-    return atr
+data = yf.download("^SPX", period="60d", interval="5m")
 
 
-# In[12]:
+# In[3]:
 
 
 class FallUp(Strategy):
@@ -73,11 +61,18 @@ class FallUp(Strategy):
                 self.position.close()
 
 
-# In[13]:
+# pandas_ta 中有現成的 atr 可以用
+
+# In[4]:
 
 
-data = yf.download("^SPX", period="60d", interval="5m")
-data['atr'] = atr(data)
+data['atr'] = ta.atr(data.High, data.Low, data.Close, length=28, fillna=0)
+
+data['atr']
+
+
+# In[5]:
+
 
 bt = Backtest(
     data, 
@@ -88,30 +83,36 @@ bt = Backtest(
     # Commission
     commission=.002, 
 
-    # market orders will be filled with respect to the current bar's closing price instead of the next bar's open.
+    # 預設使用翌日的 Open 作為買賣價格，這裡改成使用當日的 close 作為買賣價格
     trade_on_close=True,
 
-    # new order auto-closes the previous trade/position, making at most a single trade (long or short) in effect at each time
+    # 每次只下 1 張單
     exclusive_orders=True 
 )
 
 stats = bt.run()
 
 
-# In[14]:
+# In[6]:
 
 
-display(stats)
+stats
 
 
-# In[15]:
+# In[7]:
 
 
-display(stats._trades)
+stats._trades
 
 
-# In[16]:
+# In[8]:
 
 
 bt.plot()
+
+
+# In[ ]:
+
+
+
 
