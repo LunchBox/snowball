@@ -7,27 +7,11 @@ $ source venv/bin/activate
 (venv) $ pip install -r requirements.txt
 ```
 
-Jupyter Notebook
+Jupyterlab
 
 ```
-(venv) $ jupyter notebook
-```
+# check jupyter, should be /path/to/current/folder/venv/bin/jupyter
+(venv) $ which jupyter
 
-Setup VirtualEnv for Jupyter Notebook Kernel (first time only)
-
-```
-# install the venv as kernel into the notebook
-(venv) $ python -m ipykernel install --user --name=venv
-```
-
-incase for remove kernel
-
-```
-(venv) $ jupyter-kernelspec uninstall venv 
-```
-
-place the custom.css for better jupyter layout
-
-```
-$ cp custom.css ~/.jupyter/custom/custom.css
+(venv) $ jupyter lab
 ```
