@@ -4,3 +4,4 @@ venv
 credentials-dev.json
 
 *.pt
+__pycache__
